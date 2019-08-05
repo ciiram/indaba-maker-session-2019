@@ -3,6 +3,7 @@
 
 #define HELLO_WORLD 0
 #define TEST_TEMP 1
+#define TEMP_TRANSMIT 2
 
-#define PROGRAM TEST_TEMP
+#define PROGRAM TEMP_TRANSMIT
 #endif
