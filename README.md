@@ -135,20 +135,8 @@ Err 6
 Sometimes reading the sensor is unsuccessful and the error is reported.
 
 
-## Motion detection
-1. Let's connect the motion detector
-1. Connect red to AVDD, black to GND, yellow to D6.
-1. On the online compiler, open `select_program.h`.
-1. Set:
 
-    ```
-    #define PROGRAM MOTION_DETECT
-    ```
- 1. Compile, flash, ...
- 1. View the output on the console. You should see motion detected when you move your hand over teh sensor
-
-
-## Data Transmission over LoRa (Subject to Fixing our internet connection)
+## Data Transmission over LoRa
 
 Follow instructions on Jan's [repo](https://github.com/janjongboom/dsa2018-greenhouse-monitor) in the *Grabbing credentials from The Things Network* section.
 
@@ -161,7 +149,7 @@ Get the device address, network session key and application session key.
 1. Click the `< >` button of the **Network session key** and **Application session key** values to show the value as C-style array.
 1. Click the **Copy** button on the right of the value to copy to clipboard.
 
-Paste these keys into the file `inc/device_addresses.h` in the appropriate sections:
+Paste these keys into the file `device_addresses.h` in the appropriate sections:
 
 ![sim2](media/sim2.png)
 
