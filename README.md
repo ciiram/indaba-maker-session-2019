@@ -240,7 +240,8 @@ Going to sleep!
 TTN does not store data and for us to use the data in any application, we must store it in a database we configure ourselves. We will use an InfluxDB which is well suited to time series data.
 We will use the [MQTT protocol](http://mqtt.org/) to transfer data from TTN to our database via a [python SDK](https://github.com/TheThingsNetwork/python-app-sdk) provided by TTN. We will write the data to a local InfluxDB on our machines which we will create.
 
-1. Create a virtual environment
+1. Clone this repository
+1. Create a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
 `python3 -m venv ttn`
 1. Activate it
 On Linux
@@ -251,7 +252,7 @@ On Windows
 `pip install 'ttn<3'`
 1. Install InfluxDB
 `pip install influxdb`
-1. Clone this repository and run
+1.  Run
 
 `python ttn_example.py`
 
