@@ -5,5 +5,5 @@
 #define TEST_TEMP 1
 #define TEMP_TRANSMIT 2
 
-#define PROGRAM TEMP_TRANSMIT
+#define PROGRAM HELLO_WORLD
 #endif
