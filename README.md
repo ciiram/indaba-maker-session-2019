@@ -71,18 +71,13 @@ This has cloned the repository.
 1. Let's connect up the hardware.
 1. Connect red to AVDD, black to GND, yellow to D7.
    ![temperature](media/pinout1.png)
-
-1. To achieve this connection we will use male-female cables to connect the sensor to the board as shown
-
-![cramming wires](media/IMG_8553.JPG)
-
 1. On the online compiler, open `select_program.h`.
 1. Set:
 
     ```
     #define PROGRAM TEST_TEMP
     ```
- 1. Click *Compile*.
+1. Click *Compile*.
 
     ![Compile](media/mbed4.png)
 
@@ -138,8 +133,54 @@ Sometimes reading the sensor is unsuccessful and the error is reported.
 
 ## Data Transmission over LoRa
 
-Follow instructions on Jan's [repo](https://github.com/janjongboom/dsa2018-greenhouse-monitor) in the *Grabbing credentials from The Things Network* section.
+Follow these instructions from Jan's [repo](https://github.com/janjongboom/dsa2018-greenhouse-monitor)
 
+### Grabbing credentials from The Things Network
+
+We have a LoRaWAN network set up here but you need some credentials to connect to it. Let's grab some credentials from The Things Network.
+
+1. Log in to the [The Things Network console](http://console.thethingsnetwork.org).
+
+    ![console](media/console.png)
+
+1. Use the following credentials:
+    * Username: `dsa2018`.
+    * Password: `dsa2018`.
+1. Click *Applications*.
+1. Click on `dsa2018-workshop`.
+
+    ![console2](media/console2.png)
+
+1. Click *Devices*.
+1. Click *Register device*.
+
+On the register device page:
+
+1. First click the *generate* button below 'Device EUI'.
+
+    ![console](media/console4.png)
+
+1. Enter a nice name for your device and click *Register*.
+
+    ![console](media/console3.png)
+
+1. Click **Settings**.
+
+    ![settings](media/ttn20.png)
+
+1. Switch to **ABP**.
+
+    ![settings](media/ttn21.png)
+
+1. Disable (or uncheck) frame counter checks.
+
+    ![frame-counter stuff](media/ttn22.png)
+
+1. Click **Save**.
+
+
+
+### Configuring your device
 Get the device address, network session key and application session key.
 
 1. Click the **Copy** button next to 'Device Address' to copy to clipboard.
@@ -188,3 +229,44 @@ Sending 11 bytes
 11 bytes scheduled for transmission
 ```
 1. You should see the data on the console also appear on TTN in your device under the data tab.
+
+
+## Writing Data to a Database
+TTN does not store data and for us to use the data in any application, we must store it in a database we configure ourselves. We will use an InfluxDB which is well suited to time series data.
+We will use the [MQTT protocol](http://mqtt.org/) to transfer data from TTN to our database via a [python SDK](https://github.com/TheThingsNetwork/python-app-sdk) provided by TTN. We will write the data to a local InfluxDB on our machines which we will create.
+
+1. Create a virtual environment
+`python3 -m venv ttn`
+1. Activate it
+On Linux
+`source ttn/bin/activate`
+On Windows
+`ttn\Scripts\activate.bat`
+1. Install the python ttn sdk
+`pip install 'ttn<3'`
+1. Install InfluxDB
+`pip install influxdb`
+1. Run `ttn_example.py`
+
+This should create an InfluxDB on your local machine named `indaba_session` and populate it with data whenever your device transmits data. It will also print out messages with the json of the uplink
+
+```
+Received uplink from  dev-01
+{'time': '2019-08-13T09:44:17.171780715Z', 'fields': {'data_rate': 'SF12BW125', 'rssi': -103.0, 'snr': 4.2, 'Temperature': 19.0, 'Relative Humidity': 67.0}, 'measurement': 'Indaba Session', 'tags': {'sensor': 'dev-01'}}
+```
+
+These fields include temperature and humidity as well as radio transmission parameters.
+
+1. Now we can examine the database. Install InfluxDB is shown [here](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/)
+
+1. Open the database
+
+`influx -precision rfc3339 -database indaba_session`
+
+1. Display the data collected so far
+```
+Connected to http://localhost:8086 version 1.7.4
+InfluxDB shell version: 1.7.4
+Enter an InfluxQL query
+> SELECT * FROM "Indaba Session"
+```
