@@ -210,23 +210,28 @@ Paste these keys into the file `device_addresses.h` in the appropriate sections:
 1. Compile, flash, ...
 1. View the output on the console. You get something similar to
 ```
-=========================================
-      DSA 2018 Green House Monitor
-=========================================
-Sending every 20 seconds
+=======================================
+  Temperature and Humidity Sensors
+=======================================
+Sending every 60 seconds
 [DBG ][LSTK]: Initializing MAC layer
 [DBG ][LSTK]: Initiating ABP
 [DBG ][LSTK]: Frame Counters. UpCnt=0, DownCnt=0
-[DBG ][LSTK]: ABP Connection OK!
+[DBG ][LSTK]: ABP connection OK.
 Connection - In Progress ...
 Connection - Successful
-Temp=23.000000 Humi=55.000000
-Moist=0.000000
-Sending 11 bytes
-[INFO][LSTK]: RTS = 11 bytes, PEND = 0
-[DBG ][LMAC]: Next Channel Idx=0, DR=4
-[DBG ][LSTK]: Frame scheduled to TX..
-11 bytes scheduled for transmission
+Ambient Temp=21.000000 Ambient Humi=62.000000
+Sending 7 bytes
+[INFO][LMAC]: RTS = 7 bytes, PEND = 0, Port: 15
+[DBG ][LMAC]: Frame prepared to send at port 15
+[DBG ][LMAC]: TX: Channel=1, DR=0
+7 bytes scheduled for transmission
+[DBG ][LSTK]: Transmission completed
+[DBG ][LMAC]: Opening RX1 Window
+[DBG ][LMAC]: Opening RX2 Window, Frequency = 869525000
+Message Sent to Network Server
+Going to sleep!
+
 ```
 1. You should see the data on the console also appear on TTN in your device under the data tab.
 
