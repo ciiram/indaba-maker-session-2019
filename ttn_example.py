@@ -5,8 +5,8 @@ import datetime as dt
 
 from influxdb import InfluxDBClient
 
-app_id = "indaba-maker-session"
-access_key = "ttn-account-v2.peweo_j1ZzLb9JtbzrDvf-gWShcmqpDMf2Eag0a_V0I"
+app_id = "maker-session"
+access_key = "ttn-account-v2.ymC4-oojWZMYdAKJfmjTk-SL8OdZuvenjgpaJvP5yFo"
 
 GTW_ID = 'eui-00800000a0002125' # gateway of interest
 
