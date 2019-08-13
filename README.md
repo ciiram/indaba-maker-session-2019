@@ -251,7 +251,9 @@ On Windows
 `pip install 'ttn<3'`
 1. Install InfluxDB
 `pip install influxdb`
-1. Run `ttn_example.py`
+1. Clone this repository and run
+
+`python ttn_example.py`
 
 This should create an InfluxDB on your local machine named `indaba_session` and populate it with data whenever your device transmits data. It will also print out messages with the json of the uplink
 
