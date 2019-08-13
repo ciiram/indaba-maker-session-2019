@@ -25,7 +25,7 @@ Follow these instructions from DSA 2018 Nyeri by Jan Jongboon to set up. Refer t
 
 1. Sign up for an Mbed account [https://os.mbed.com](https://os.mbed.com).
 1. Go to the [NUCLEO-F446RE](https://os.mbed.com/platforms/ST-Nucleo-F446RE/) platform page and click *Add to your Mbed compiler*.
-1. Import the example program into the Arm Mbed Compiler by clicking [this link](https://os.mbed.com/compiler/#import:https://github.com/ciiram/dsa-abuja-mbed-demo).
+1. Import the example program into the Arm Mbed Compiler by clicking [this link](https://os.mbed.com/compiler/#import:https://github.com/ciiram/indaba-maker-session-2019).
 1. Click *Import*.
 1. In the top right corner make sure you selected 'NUCLEO-F446RE'.
 
