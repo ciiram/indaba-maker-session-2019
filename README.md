@@ -144,10 +144,10 @@ We have a LoRaWAN network set up here but you need some credentials to connect t
     ![console](media/console.png)
 
 1. Use the following credentials:
-    * Username: `dsa2018`.
-    * Password: `dsa2018`.
+    * Username: `indaba2019`.
+    * Password: `indaba2019`.
 1. Click *Applications*.
-1. Click on `dsa2018-workshop`.
+1. Click on `maker-session`.
 
     ![console2](media/console2.png)
 
