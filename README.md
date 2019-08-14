@@ -2,6 +2,45 @@
 
 In this session we will develop software to collect data from a temperature sensor connected to the [NUCLEO F446RE](https://os.mbed.com/platforms/ST-Nucleo-F446RE/) board and deploy an application to visualise the data collected and perform predictions.
 
+## Preparation
+
+Before the session, please do the following
+
+1. Sign up for an Mbed account [https://os.mbed.com/account/signup/](https://os.mbed.com/account/signup/).
+1. Clone this repository
+1. Create a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
+`python3 -m venv ttn`
+1. Activate it
+On Linux
+`source ttn/bin/activate`
+On Windows
+`ttn\Scripts\activate.bat`
+1. Install the requirements
+`pip install -r requirements.txt`
+1. Install InfluxDB as shown [here](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/) - TODO: Instructions for Windows
+1. Install software to obtain console output - we will need this to see the output from the microcontrollers
+### Software to obtain console output
+**Windows**
+
+If you are on Windows, install:
+
+1. [ST Link](http://janjongboom.com/downloads/st-link.zip) - serial driver for the board.
+    * Run `dpinst_amd64` on 64-bits Windows, `dpinst_x86` on 32-bits Windows.
+1. [Tera term](https://osdn.net/projects/ttssh2/downloads/66361/teraterm-4.92.exe/) - to see debug messages from the board.
+
+**Linux**
+
+If you're on Linux, install:
+
+1. screen - e.g. via `sudo apt install screen`
+
+**MacOS**
+
+Nothing required.
+
+
+
+
 ## Firmware Development
 We will deploy two programs on the Nucleo board
 1. The hardware hello world program *Blinky* that turns an LED on and off.
@@ -13,9 +52,10 @@ Data transmission from the sensors to the application will be via LoRaWAN. This 
 
 ## Hardware requirements
 1. NUCLEO-F446RE
-1. LoRaWAN Transciever Shield (Custom made for DSA by ARM!)
+1. LoRaWAN Transceiver Shield (Custom made for DSA by ARM!)
 1. USB Connector
 1. Temperature sensor
+
 
 
 
@@ -23,7 +63,6 @@ Data transmission from the sensors to the application will be via LoRaWAN. This 
 
 Follow these instructions from DSA 2018 Nyeri by Jan Jongboon to set up. Refer to the original repo [here](https://github.com/janjongboom/dsa2018-greenhouse-monitor).
 
-1. Sign up for an Mbed account [https://os.mbed.com](https://os.mbed.com).
 1. Go to the [NUCLEO-F446RE](https://os.mbed.com/platforms/ST-Nucleo-F446RE/) platform page and click *Add to your Mbed compiler*.
 1. Import the example program into the Arm Mbed Compiler by clicking [this link](https://os.mbed.com/compiler/#import:https://github.com/ciiram/indaba-maker-session-2019).
 1. Click *Import*.
@@ -42,22 +81,17 @@ This has cloned the repository.
     **Note:** Here's a [video](https://youtu.be/L5TcmFFD0iw?t=1m25s).
 
 1. When flashing is complete, hit the **RESET** button on the shield.
+1. You should notice the led on the nucleo board flashing. We have programmed the board to blink every second.
 
 
-## Blinky
+## Modify Blinky
 1. Open `select_program.h`.
-1. Set:
+1. Note that we have set the program to be compiled here. Later we will change this.
 
     ```
     #define PROGRAM HELLO_WORLD
     ```
- 1. Click *Compile*.
 
-    ![Compile](media/mbed4.png)
-
-1. A binary (.bin) file downloads, use drag-and-drop to copy the file to the NODE_F446RE device (like a USB mass storage device).
-1. When flashing is complete, hit the **RESET** button on the shield.
-1. You should notice the led on the nucleo board flashing.
 1. Open `hello_world.cpp` and change the value of the constant
 
    ```
@@ -70,7 +104,7 @@ This has cloned the repository.
 ## Temperature and humidity measurement
 1. Let's connect up the hardware.
 1. Connect red to AVDD, black to GND, yellow to D7.
-   ![temperature](media/pinout1.png)
+   ![temperature](media/pinout1_v2.png)
 1. On the online compiler, open `select_program.h`.
 1. Set:
 
@@ -94,26 +128,11 @@ Then connect to the board using screen:
 ```
 sudo screen /dev/ttyACM0 9600                # might not need sudo if set up lsusb rules properly
 ```
-### Software to obtain console output
-**Windows**
 
-If you are on Windows, install:
+On Windows
 
-1. [ST Link](http://janjongboom.com/downloads/st-link.zip) - serial driver for the board.
-    * Run `dpinst_amd64` on 64-bits Windows, `dpinst_x86` on 32-bits Windows.
-    * Afterwards, unplug your board and plug it back in.
-    * (Not sure if it configured correctly? Look in 'Device Manager > Ports (COM & LPT)', should list as STLink Virtual COM Port.
-1. [Tera term](https://osdn.net/projects/ttssh2/downloads/66361/teraterm-4.92.exe/) - to see debug messages from the board.
-
-**Linux**
-
-If you're on Linux, install:
-
-1. screen - e.g. via `sudo apt install screen`
-
-**MacOS**
-
-Nothing required.
+* Unplug your board and plug it back in.
+* (Not sure if it configured correctly? Look in 'Device Manager > Ports (COM & LPT)', should list as STLink Virtual COM Port.
 
 
 The output will look something like this
@@ -185,14 +204,18 @@ Get the device address, network session key and application session key.
 
 1. Click the **Copy** button next to 'Device Address' to copy to clipboard.
 
-    ![device-address](media/ttn23.png)
+    ![device-address](media/ttn_adr.png)
 
 1. Click the `< >` button of the **Network session key** and **Application session key** values to show the value as C-style array.
 1. Click the **Copy** button on the right of the value to copy to clipboard.
 
 Paste these keys into the file `device_addresses.h` in the appropriate sections:
 
-![sim2](media/sim2.png)
+```
+static uint32_t DEVADDR = 0x2601112A;
+static uint8_t NWKSKEY[] = { 0xD1, 0x8F, 0xB8, 0x4A, 0xB1, 0x1C, 0xAF, 0x3E, 0xBD, 0xC2, 0xB6, 0x84, 0xEF, 0xD4, 0x41, 0xE4 };
+static uint8_t APPSKEY[] =  { 0xAF, 0x05, 0x16, 0x6F, 0x17, 0x34, 0xAD, 0xC0, 0x51, 0xD1, 0xE9, 0x7B, 0xF5, 0xFA, 0x33, 0x6E };
+```
 
 * Put Device Address on the first line, prefixed with `0x`!
 * Put Network Session Key on the second line, don't forget to add `;` at the end.
@@ -240,18 +263,7 @@ Going to sleep!
 TTN does not store data and for us to use the data in any application, we must store it in a database we configure ourselves. We will use an InfluxDB which is well suited to time series data.
 We will use the [MQTT protocol](http://mqtt.org/) to transfer data from TTN to our database via a [python SDK](https://github.com/TheThingsNetwork/python-app-sdk) provided by TTN. We will write the data to a local InfluxDB on our machines which we will create.
 
-1. Clone this repository
-1. Create a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
-`python3 -m venv ttn`
-1. Activate it
-On Linux
-`source ttn/bin/activate`
-On Windows
-`ttn\Scripts\activate.bat`
-1. Install the python ttn sdk
-`pip install 'ttn<3'`
-1. Install InfluxDB
-`pip install influxdb`
+
 1.  Run
 
 `python ttn_example.py`
@@ -265,7 +277,7 @@ Received uplink from  dev-01
 
 These fields include temperature and humidity as well as radio transmission parameters.
 
-1. Now we can examine the database. Install InfluxDB is shown [here](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/)
+1. Now we can examine the database.
 
 1. Open the database
 
