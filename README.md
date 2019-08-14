@@ -294,9 +294,4 @@ Enter an InfluxQL query
 ## Data Analysis
 We will now get the data into a Jupyter notebook and perform some visualisation and analysis. We will work in the same virtual environment.
 
-1. Install requirements
-`pip install jupyter notebook`
-`python -m pip install -U matplotlib`
-`pip install pandas`
-`pip install GPy`
 1. Open the data analysis notebook and follow the instructions.
