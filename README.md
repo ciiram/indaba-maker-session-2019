@@ -295,4 +295,8 @@ Enter an InfluxQL query
 ## Data Analysis
 We will now get the data into a Jupyter notebook and perform some visualisation and analysis. We will work in the same virtual environment.
 
+1. Activate the environment (
+`source ttn/bin/activate`
+On Windows
+`ttn\Scripts\activate.bat`)
 1. Open the data analysis notebook (data_analysis.ipynb) in this repo and follow the instructions.
