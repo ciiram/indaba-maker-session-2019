@@ -6,9 +6,9 @@ In this session we will develop software to collect data from a temperature sens
 
 Before the session, please do the following
 
+1. Install Python 3.  Anaconda is a good choice [https://www.anaconda.com/distribution/](https://www.anaconda.com/distribution/)
 1. Sign up for an Mbed account [https://os.mbed.com/account/signup/](https://os.mbed.com/account/signup/).
-1. Clone this repository
-1. Install python 3.  Anaconda is a good choice [https://www.anaconda.com/distribution/](https://www.anaconda.com/distribution/)
+1. Clone this repository and cd into it
 1. Create a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
 `python3 -m venv ttn`
 1. Activate it
@@ -295,4 +295,4 @@ Enter an InfluxQL query
 ## Data Analysis
 We will now get the data into a Jupyter notebook and perform some visualisation and analysis. We will work in the same virtual environment.
 
-1. Open the data analysis notebook(data_analysis.ipynb) in this repo and follow the instructions.
+1. Open the data analysis notebook (data_analysis.ipynb) in this repo and follow the instructions.
