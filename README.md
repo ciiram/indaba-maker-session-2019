@@ -8,6 +8,7 @@ Before the session, please do the following
 
 1. Sign up for an Mbed account [https://os.mbed.com/account/signup/](https://os.mbed.com/account/signup/).
 1. Clone this repository
+1. Install python 3.  Anaconda is a good choice [https://www.anaconda.com/distribution/](https://www.anaconda.com/distribution/)
 1. Create a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
 `python3 -m venv ttn`
 1. Activate it
@@ -17,7 +18,7 @@ On Windows
 `ttn\Scripts\activate.bat`
 1. Install the requirements
 `pip install -r requirements.txt`
-1. Install InfluxDB as shown [here](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/) - TODO: Instructions for Windows
+1. Install InfluxDB as shown [here (Linux and Mac)](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/) - [Instructions for Windows](https://docs.google.com/document/d/1_5_oCk_9x3BNI6-9pCWj46zaXa0hJ2BBzWs-c3ZNUz8/edit?usp=sharing)
 1. Install software to obtain console output - we will need this to see the output from the microcontrollers
 ### Software to obtain console output
 **Windows**
