@@ -3,7 +3,10 @@
 
 #define HELLO_WORLD 0
 #define TEST_TEMP 1
-#define TEMP_TRANSMIT 2
+#define TEST_SOIL 2
+#define TEMP_TRANSMIT 3
+#define SOIL_TRANSMIT 4
+#define TEMP_SOIL_TRANSMIT 5
 
 #define PROGRAM HELLO_WORLD
 #endif
