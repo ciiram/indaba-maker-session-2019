@@ -1,6 +1,6 @@
 #include "select_program.h"
 
-#if PROGRAM == SOIL_TRANSMIT
+#if PROGRAM == TEMP_SOIL_TRANSMIT
 
 #include "mbed.h"
 #include "mbed.h"
@@ -27,6 +27,7 @@ static const int SENSOR_WAIT_TIME_MS = 3000;  // slow sensor,
 
 
 // Sensors
+static DHT temperature_humidity_sensor(D7, AM2302);  // Temperature sensor
 static AnalogIn soil_moisture(A2); // Soil Moisture sensor
 
 // EventQueue is required to dispatch events around
@@ -46,12 +47,38 @@ static void send_message() {
     CayenneLPP payload(50);
     int attempt = 0;
 
+    float temperature = 0.0f;
+    float humidity = 0.0f;
+    int error_code;
+
+    while (attempt++ < SENSOR_READ_ATTEMPTS) {
+      error_code = temperature_humidity_sensor.readData();
+      if (error_code != ERROR_NONE) {
+        printf("Error = %d\n", error_code);
+        wait_ms(SENSOR_WAIT_TIME_MS);
+        continue;
+      } else {
+        temperature = temperature_humidity_sensor.ReadTemperature(CELCIUS);
+        humidity = temperature_humidity_sensor.ReadHumidity();
+        break;
+      }
+    }
+
+    if (error_code != ERROR_NONE) {
+        printf("Could not read DHT data: %d\n", error_code);
+    } else {
+        payload.addTemperature(2, temperature);
+        payload.addRelativeHumidity(3, humidity);
+    }
+
     float moisture = 0.0f;
 
     moisture = soil_moisture.read();
 
     payload.addAnalogInput(4, moisture * 100);
     printf("\rMoisture Level: %.1f%%\n", moisture * 100);
+
+    printf("Ambient Temp=%f Ambient Humi=%f\n", temperature, humidity);
 
     if (payload.getSize() > 0) {
       printf("Sending %d bytes\n", payload.getSize());
@@ -81,9 +108,9 @@ static void send_message() {
 int main() {
     set_time(0);
 
-    printf("\r============================\n");
-    printf("\r  Soil Moisture Sensors     \n");
-    printf("\r============================\n");
+    printf("\r======================================================\n");
+    printf("\r  Temperature, Humidity and Soil Moisture Sensors     \n");
+    printf("\r======================================================\n");
 
     printf("Sending every %d seconds\n", STANDBY_TIME_S);
 
