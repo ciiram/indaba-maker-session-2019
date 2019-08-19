@@ -343,3 +343,20 @@ We will now get the data into a Jupyter notebook and perform some visualisation 
 On Windows
 `ttn\Scripts\activate.bat`)
 1. Open the data analysis notebook (data_analysis.ipynb) in this repo and follow the instructions.
+
+
+## Battery Powered Deployment
+
+1. Take battery holder and place 4 AAA batteries.
+1. Connect the jumpers to Vin (red) and GND (black), these are on the left side of the shield
+
+    ![battery](media/pinout3.png)
+
+1. Then remove the USB cable, and remove the shield, and find jumper JP5.
+
+    ![jumper](media/IMG_3523.JPG)
+
+1. Move it from U5V to E5V.
+1. Place the shield back.
+1. The device should be back online.
+1. We'll explore how far we can take the sensor
