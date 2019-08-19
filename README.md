@@ -56,7 +56,7 @@ Data transmission from the sensors to the application will be via LoRaWAN. This 
 1. LoRaWAN Transceiver Shield (Custom made for DSA by ARM!)
 1. USB Connector
 1. Temperature sensor
-
+1. Soil Moisture Sensor
 
 
 
@@ -149,6 +149,33 @@ Err 6
 ```
 Sometimes reading the sensor is unsuccessful and the error is reported.
 
+## Soil Moisture Measurement
+1. For those with soil moisture sensors, connect the hardware as follows Connect red to 3.3V, black to GND, yellow to A2.
+1. For this you will need to create a male-female jumper from the male-male and female-female jumpers provided.
+![soil](media/pinout2.png)
+1. On the online compiler, open `select_program.h`.
+1. Set:
+
+    ```
+    #define PROGRAM TEST_SOIL
+
+    ```
+1. Compile, flash and view the output on the console
+1. If you hold the sensor, the moisture in your palm should cause the percentage to rise. If you can get a wet rag the moisture level will rise even higher.
+
+
+The output will look something like
+
+```
+Soil Moisture Sensor Test program
+******************
+Moisture Level: 0.0%
+Moisture Level: 0.0%
+Moisture Level: 36.2%
+Moisture Level: 34.3%
+Moisture Level: 35.7%
+Moisture Level: 36.2%
+```
 
 
 ## Data Transmission over LoRa
@@ -222,7 +249,7 @@ static uint8_t APPSKEY[] =  { 0xAF, 0x05, 0x16, 0x6F, 0x17, 0x34, 0xAD, 0xC0, 0x
 * Put Network Session Key on the second line, don't forget to add `;` at the end.
 * Put Application Session Key on the third line, don't forget to add `;` at the end.
 
-1. Connect the temperature sensor as you did earlier.
+1. Connect the temperature (or soil moisture) sensor as you did earlier.
 1. Connect the LoRa sheild on top of the Nucleo board.
 1. The correct orientation of the LoRa shield is when all the logos are on the top.
 1. On the online compiler, open `select_program.h`.
@@ -230,7 +257,22 @@ static uint8_t APPSKEY[] =  { 0xAF, 0x05, 0x16, 0x6F, 0x17, 0x34, 0xAD, 0xC0, 0x
 
     ```
     #define PROGRAM TEMP_TRANSMIT
+
     ```
+
+Or
+
+    ```
+    #define PROGRAM SOIL_TRANSMIT
+
+    ```
+Or
+    ```
+    #define PROGRAM TEMP_SOIL_TRANSMIT
+
+    ```
+ Depending on whether you have the temperature sensor, soil moisture sensor or both.
+
 1. Compile, flash, ...
 1. View the output on the console. You get something similar to
 ```
@@ -295,7 +337,7 @@ Enter an InfluxQL query
 ## Data Analysis
 We will now get the data into a Jupyter notebook and perform some visualisation and analysis. We will work in the same virtual environment.
 
-1. Activate the environment (
+1. Activate the environment (On Linux
 `source ttn/bin/activate`
 On Windows
 `ttn\Scripts\activate.bat`)
