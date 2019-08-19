@@ -33,6 +33,7 @@ def uplink_callback(msg, client):
 
   fields['Temperature'] = float(msg.payload_fields.temperature_2)
   fields['Relative Humidity'] = float(msg.payload_fields.relative_humidity_3)
+  fields['Soil Moisture'] = float(msg.payload_fields.analog_in_4)
 
   influxdb_entry['fields'] = fields
   influxdb_entry['measurement'] = 'Indaba Session'
