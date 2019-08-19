@@ -1,6 +1,6 @@
 # Indaba Maker Session 2019
 
-In this session we will develop software to collect data from a temperature sensor connected to the [NUCLEO F446RE](https://os.mbed.com/platforms/ST-Nucleo-F446RE/) board and deploy an application to visualise the data collected and perform predictions.
+In this session we will develop software to collect data from sensors connected to the [NUCLEO F446RE](https://os.mbed.com/platforms/ST-Nucleo-F446RE/) board. We will also visualise the data collected and perform interpolation using Gaussian process regression.
 
 ## Preparation
 
