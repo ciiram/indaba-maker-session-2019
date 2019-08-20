@@ -31,9 +31,16 @@ def uplink_callback(msg, client):
       fields['rssi'] = float(gtw.rssi)
       fields['snr'] = float(gtw.snr)
 
-  fields['Temperature'] = float(msg.payload_fields.temperature_2)
-  fields['Relative Humidity'] = float(msg.payload_fields.relative_humidity_3)
-  fields['Soil Moisture'] = float(msg.payload_fields.analog_in_4)
+  try:
+    fields['Temperature'] = float(msg.payload_fields.temperature_2)
+    fields['Relative Humidity'] = float(msg.payload_fields.relative_humidity_3)
+  except:
+    pass
+
+  try:
+    fields['Soil Moisture'] = float(msg.payload_fields.analog_in_4)
+  except:
+    pass
 
   influxdb_entry['fields'] = fields
   influxdb_entry['measurement'] = 'Indaba Session'
