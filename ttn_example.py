@@ -8,7 +8,7 @@ from influxdb import InfluxDBClient
 app_id = "maker-session"
 access_key = "ttn-account-v2.ymC4-oojWZMYdAKJfmjTk-SL8OdZuvenjgpaJvP5yFo"
 
-GTW_ID = 'eui-00800000a0002125' # gateway of interest
+GTW_ID = 'iot-mashinani' # gateway of interest
 
 db_client = InfluxDBClient(host='localhost', port=8086)
 db_client.create_database('indaba_session')
